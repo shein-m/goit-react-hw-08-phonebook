@@ -15,7 +15,7 @@ export default function ContactForm() {
   const contacts = useSelector(contactSelectors.getContacts);
 
   const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
+  const [number, setNumber] = useState('');
 
   const handleChange = event => {
     const { name, value } = event.target;
@@ -25,7 +25,7 @@ export default function ContactForm() {
     }
 
     if (name === 'number') {
-      setPhone(value);
+      setNumber(value);
     }
   };
 
@@ -42,7 +42,7 @@ export default function ContactForm() {
     event.preventDefault();
 
     if (!isContactAlready(name)) {
-      dispatch(contactOperation.addContact({ name, phone }));
+      dispatch(contactOperation.addContact({ name, number }));
     }
 
     resetForm();
@@ -50,12 +50,12 @@ export default function ContactForm() {
 
   const resetForm = () => {
     setName('');
-    setPhone('');
+    setNumber('');
   };
 
   return (
     <Section title="Phonebook">
-      <ContactUiForm type="submit" onSubmit={handleForm}>
+      <ContactUiForm type="submit" autoComplete="false" onSubmit={handleForm}>
         <ContactDiv>
           <ContactLabel htmlFor="name">Name</ContactLabel>
           <input
@@ -78,7 +78,7 @@ export default function ContactForm() {
             name="number"
             pattern="^[+]?[0-9\\.\\-\\s]{1,15}$"
             title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-            value={phone}
+            value={number}
             onChange={handleChange}
             required
           />

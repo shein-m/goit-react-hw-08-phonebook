@@ -12,7 +12,7 @@ export default function FilterContacts({ title }) {
     <>
       <h3>{title}</h3>
       <input
-        className="input-field"
+        className="input-field filter"
         type="text"
         name="filter"
         value={filter}

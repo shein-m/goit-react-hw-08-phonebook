@@ -1,14 +1,30 @@
 const { default: styled } = require('@emotion/styled');
 
 export const ContactLi = styled.li``;
-export const ContactButton = styled.button`
-  padding: 5px 10px;
-  margin-left: 15px;
-  border: 1px solid red;
-  border-radius: 5px;
-  background-color: transparent;
 
-  font-size: 16px;
+export const ContactWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const ContactContent = styled.p``;
+
+export const ContactGroupButtons = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 20px;
+`;
+
+export const ContactButton = styled.button`
+  display: flex;
+  align-items: center;
+
+  padding: 0px;
+
+  font-size: 18px;
+  background-color: transparent;
+  border: none;
   cursor: pointer;
 
   &:hover {

@@ -1,20 +1,38 @@
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { ContactButton, ContactLi } from './contact.styled';
-import { deleteContact } from 'redux/contacts/operations';
+import {
+  ContactButton,
+  ContactLi,
+  ContactWrapper,
+  ContactContent,
+  ContactGroupButtons,
+} from './contact.styled';
+import { deleteContact } from 'redux/contacts/contacts-operations';
+import { BiTrash, BiEdit } from 'react-icons/bi';
 
-export default function Contact({ name, phone, id }) {
+export default function Contact({ name, number, id, handleUpdate }) {
   const dispatch = useDispatch();
+
   return (
     <>
       <ContactLi>
-        {name}: {phone}
-        <ContactButton
-          type="button"
-          onClick={() => dispatch(deleteContact(id))}
-        >
-          remove
-        </ContactButton>
+        <ContactWrapper>
+          <ContactContent>
+            {name}: {number}
+          </ContactContent>
+          <ContactGroupButtons>
+            {' '}
+            <ContactButton
+              type="button"
+              onClick={() => dispatch(deleteContact(id))}
+            >
+              <BiTrash />
+            </ContactButton>
+            <ContactButton type="button" onClick={() => handleUpdate(id)}>
+              <BiEdit />
+            </ContactButton>
+          </ContactGroupButtons>
+        </ContactWrapper>
       </ContactLi>
     </>
   );
@@ -22,6 +40,6 @@ export default function Contact({ name, phone, id }) {
 
 Contact.propTypes = {
   name: PropTypes.string.isRequired,
-  phone: PropTypes.string.isRequired,
+  number: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
 };

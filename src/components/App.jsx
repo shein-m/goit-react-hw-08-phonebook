@@ -1,23 +1,65 @@
-import { useSelector } from 'react-redux';
-import ContactForm from './ContactForm/ContactForm';
-import ContactList from './ContactList/ContactList';
-import FilterContacts from './FilterContacts/FilterContacts';
-import Section from './Section/Section';
-import { isLoadingContacts, errorContacts } from 'redux/contacts/selectors';
+import { Route, Routes, Navigate } from 'react-router-dom';
+import { lazy, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { currentUser } from 'redux/auth/auth-operations';
+import PrivateRoute from './PrivateRoute';
+import PublicRoute from './PublicRoute';
+import { getRefresh } from 'redux/auth/auth-selectors';
+import { SharedLayout } from './SharedLayout';
+
+const Register = lazy(() => import('pages/ResigisterPage'));
+const Login = lazy(() => import('pages/LoginPage'));
+const ContactPage = lazy(() => import('pages/ContactPage'));
+const NotFound = lazy(() => import('pages/NotFound'));
 
 export default function App() {
-  const isLoading = useSelector(isLoadingContacts);
-  const isError = useSelector(errorContacts);
+  const dispatch = useDispatch();
+  const isRefresh = useSelector(getRefresh);
+
+  useEffect(() => {
+    dispatch(currentUser());
+  }, [dispatch]);
 
   return (
     <>
-      <ContactForm />
-      <Section title="Contacts">
-        <FilterContacts title="Find contacts by name" />
-        {isLoading && <h2>Loading...</h2>}
-        {isError && <h2>Something wrong, Error</h2>}
-        <ContactList />
-      </Section>
+      {!isRefresh && (
+        <>
+          <Routes>
+            <Route path="/" element={<Navigate to="/contacts" />} />
+
+            <Route path="/" element={<SharedLayout />}>
+              <Route path="*" element={<NotFound />} />
+              <Route
+                path="register"
+                element={
+                  <PublicRoute restricted>
+                    <Register />
+                  </PublicRoute>
+                }
+              />
+
+              <Route
+                path="login"
+                index
+                element={
+                  <PublicRoute restricted>
+                    <Login />
+                  </PublicRoute>
+                }
+              />
+
+              <Route
+                path="contacts"
+                element={
+                  <PrivateRoute>
+                    <ContactPage />
+                  </PrivateRoute>
+                }
+              />
+            </Route>
+          </Routes>
+        </>
+      )}
     </>
   );
 }
