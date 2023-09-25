@@ -1,13 +1,17 @@
 import { useEffect, useState } from 'react';
 import {
-  SignUpFormButton,
-  SignUpFormDiv,
-  SignUpFormLabel,
-  SignUpFormWrapper,
-} from './signUpForm.styled';
+  AuthFormButton,
+  AuthFormDiv,
+  AuthFormLabel,
+  AuthFormWrapper,
+  AuthFormInput,
+  AuthFormIconWrapper,
+} from './AuthForm.styled';
 import { useDispatch, useSelector } from 'react-redux';
 import { register } from 'redux/auth/auth-operations';
 import { authSlice } from 'redux/auth/auth-slice';
+import { HiOutlineMail, HiOutlineKey } from 'react-icons/hi';
+import { CgProfile } from 'react-icons/cg';
 
 export const SignUpForm = () => {
   const [name, setName] = useState('');
@@ -47,17 +51,22 @@ export const SignUpForm = () => {
     setPassword('');
   };
 
-  const handleSubmit = event => {
+  const handleSubmit = async event => {
     event.preventDefault();
-    dispatch(register({ name, email, password }));
-    resetForm();
+    try {
+      await dispatch(register({ name, email, password })).unwrap();
+      resetForm();
+    } catch (err) {
+      setEmail('');
+      setPassword('');
+    }
   };
 
   return (
-    <SignUpFormWrapper onSubmit={handleSubmit} autoComplete="true">
-      <SignUpFormDiv>
-        <SignUpFormLabel htmlFor="signUpName">Name</SignUpFormLabel>
-        <input
+    <AuthFormWrapper onSubmit={handleSubmit} autoComplete="true">
+      <AuthFormLabel htmlFor="signUpName">Name</AuthFormLabel>
+      <AuthFormDiv>
+        <AuthFormInput
           id="signUpName"
           type="text"
           name="name"
@@ -65,11 +74,14 @@ export const SignUpForm = () => {
           onChange={handleChange}
           required
         />
-      </SignUpFormDiv>
+        <AuthFormIconWrapper>
+          <CgProfile size={16} />
+        </AuthFormIconWrapper>
+      </AuthFormDiv>
 
-      <SignUpFormDiv>
-        <SignUpFormLabel htmlFor="signUpEmail">Email</SignUpFormLabel>
-        <input
+      <AuthFormLabel htmlFor="signUpEmail">Email</AuthFormLabel>
+      <AuthFormDiv>
+        <AuthFormInput
           id="signUpEmail"
           type="email"
           name="email"
@@ -77,11 +89,14 @@ export const SignUpForm = () => {
           onChange={handleChange}
           required
         />
-      </SignUpFormDiv>
+        <AuthFormIconWrapper>
+          <HiOutlineMail size={16} />
+        </AuthFormIconWrapper>
+      </AuthFormDiv>
 
-      <SignUpFormDiv>
-        <SignUpFormLabel htmlFor="signUpPassword">Password</SignUpFormLabel>
-        <input
+      <AuthFormLabel htmlFor="signUpPassword">Password</AuthFormLabel>
+      <AuthFormDiv>
+        <AuthFormInput
           id="signUpPassword"
           type="password"
           name="password"
@@ -89,12 +104,15 @@ export const SignUpForm = () => {
           onChange={handleChange}
           required
         />
-      </SignUpFormDiv>
+        <AuthFormIconWrapper>
+          <HiOutlineKey size={16} />
+        </AuthFormIconWrapper>
+      </AuthFormDiv>
 
-      <SignUpFormButton type="submit">Sign Up</SignUpFormButton>
+      <AuthFormButton type="submit">Sign Up</AuthFormButton>
       <span style={{ color: 'red' }}>
-        {error === 400 && 'Error, try again'}
+        {error === 400 && 'Email is invalid or already taken'}
       </span>
-    </SignUpFormWrapper>
+    </AuthFormWrapper>
   );
 };

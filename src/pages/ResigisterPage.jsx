@@ -1,7 +1,12 @@
-import { SignUpForm } from 'components/SignUpForm/SignUpForm';
+import { SignUpForm } from 'components/AuthForms/SignUpForm';
 
 const Register = () => {
-  return <SignUpForm />;
+  return (
+    <div>
+      <h2>Registration</h2>
+      <SignUpForm />
+    </div>
+  );
 };
 
 export default Register;

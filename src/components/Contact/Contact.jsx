@@ -21,7 +21,6 @@ export default function Contact({ name, number, id, handleUpdate }) {
             {name}: {number}
           </ContactContent>
           <ContactGroupButtons>
-            {' '}
             <ContactButton
               type="button"
               onClick={() => dispatch(deleteContact(id))}

@@ -1,15 +1,18 @@
 import { useEffect, useState } from 'react';
 import {
-  SignInFormButton,
-  SignInFormDiv,
-  SignInFormLabel,
-  SignInFormWrapper,
-} from './signInForm.styled';
+  AuthFormButton,
+  AuthFormDiv,
+  AuthFormLabel,
+  AuthFormWrapper,
+  AuthFormInput,
+  AuthFormIconWrapper,
+} from './AuthForm.styled';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from 'redux/auth/auth-operations';
 import { authSlice } from 'redux/auth/auth-slice';
+import { HiOutlineMail, HiOutlineKey } from 'react-icons/hi';
 
-export const SignInForm = () => {
+export const LoginForm = () => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -39,40 +42,57 @@ export const SignInForm = () => {
     setPassword('');
   };
 
-  const handleSubmit = event => {
+  const handleSubmit = async event => {
     event.preventDefault();
-    dispatch(login({ email, password }));
-    resetForm();
+
+    try {
+      await dispatch(login({ email, password })).unwrap();
+      resetForm();
+    } catch (err) {
+      if (err) {
+        setPassword('');
+      }
+    }
   };
 
   return (
-    <SignInFormWrapper onSubmit={handleSubmit} autoComplete="true">
-      <SignInFormDiv>
-        <SignInFormLabel htmlFor="singInEmail">Email</SignInFormLabel>
-        <input
+    <AuthFormWrapper onSubmit={handleSubmit} autoComplete="true">
+      <AuthFormLabel htmlFor="singInEmail">Email</AuthFormLabel>
+      <AuthFormDiv>
+        <AuthFormInput
           id="singInEmail"
           type="email"
           name="email"
+          placeholder="Email"
           required
           value={email}
           onChange={handleChange}
         />
-      </SignInFormDiv>
-      <SignInFormDiv>
-        <SignInFormLabel htmlFor="signInPassword">Password</SignInFormLabel>
-        <input
+        <AuthFormIconWrapper>
+          <HiOutlineMail size={16} />
+        </AuthFormIconWrapper>
+      </AuthFormDiv>
+      <AuthFormLabel htmlFor="signInPassword">Password</AuthFormLabel>
+      <AuthFormDiv className="last-wrapper">
+        <AuthFormInput
           id="signInPassword"
           type="password"
           name="password"
+          placeholder="Password"
           required
           value={password}
           onChange={handleChange}
         />
-      </SignInFormDiv>
-      <SignInFormButton type="submit">Sign In</SignInFormButton>
+        <AuthFormIconWrapper>
+          <HiOutlineKey size={16} />
+        </AuthFormIconWrapper>
+      </AuthFormDiv>
+      <AuthFormButton type="submit" disabled={password === '' && error}>
+        Sign In
+      </AuthFormButton>
       <span style={{ color: 'red' }}>
-        {error === 400 && 'Error, try again'}
+        {error === 400 && 'Incorrect username or password.'}
       </span>
-    </SignInFormWrapper>
+    </AuthFormWrapper>
   );
 };
