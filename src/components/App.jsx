@@ -7,8 +7,8 @@ import PublicRoute from './PublicRoute';
 import { getRefresh } from 'redux/auth/auth-selectors';
 import { SharedLayout } from './SharedLayout';
 
-const Register = lazy(() => import('pages/ResigisterPage'));
-const Login = lazy(() => import('pages/LoginPage'));
+const Register = lazy(() => import('pages/RegisterPage/RegisterPage'));
+const Login = lazy(() => import('pages/LoginPage/LoginPage'));
 const ContactPage = lazy(() => import('pages/ContactPage'));
 const NotFound = lazy(() => import('pages/NotFound'));
 

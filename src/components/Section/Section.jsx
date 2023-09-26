@@ -1,17 +1,16 @@
+import { Container } from 'components/Container';
 import PropTypes from 'prop-types';
+import { SectionEl } from './section.styled';
 
-export default function Section({ children, title }) {
+export default function Section({ children, id }) {
   return (
-    <>
-      <section>
-        <h2>{title}</h2>
-        {children}
-      </section>
-    </>
+    <SectionEl id={id}>
+      <Container>{children}</Container>
+    </SectionEl>
   );
 }
 
 Section.propTypes = {
-  title: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
+  id: PropTypes.string.isRequired,
 };

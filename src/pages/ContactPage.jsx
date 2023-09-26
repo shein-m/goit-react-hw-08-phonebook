@@ -14,7 +14,7 @@ const ContactPage = () => {
   return (
     <>
       <ContactForm />
-      <Section title="Contacts">
+      <Section title="Contacts" id="contacts">
         <FilterContacts title="Find contacts by name" />
         {isLoading && <h2>Loading...</h2>}
         {isError && <h2>Something wrong, Error</h2>}
