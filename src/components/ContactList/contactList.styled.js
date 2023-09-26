@@ -1,10 +1,6 @@
 const { default: styled } = require('@emotion/styled');
 
 export const ContactListUl = styled.ul`
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-
-  width: 400px;
+  padding: 0;
+  list-style: none;
 `;
-export const ContactListLi = styled.li``;

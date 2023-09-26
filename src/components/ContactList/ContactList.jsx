@@ -5,6 +5,7 @@ import { ContactListUl } from './contactList.styled';
 import { getFilter } from '../../redux/filter/selectors';
 import { contactOperation, contactSelectors } from 'redux/contacts';
 import ContactModal from 'components/ContactModal/ContactModal';
+import { ContactListBar } from './ContactListBar/ContactListBar';
 
 export default function ContactList() {
   const dispatch = useDispatch();
@@ -34,6 +35,9 @@ export default function ContactList() {
     <>
       {contacts.length > 0 && (
         <ContactListUl>
+          <ContactListBar
+            title={{ name: 'Name', phone: 'Phone', actions: 'Actions' }}
+          />
           {filteredContacts.map(({ id, name, number }) => (
             <Contact
               key={id}

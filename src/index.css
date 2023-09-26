@@ -7,7 +7,7 @@
 }
 
 body {
-  margin: 30px;
+  margin: 0px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -20,26 +20,17 @@ code {
     monospace;
 }
 
+input,
+button {
+  outline: none;
+}
+
 .container {
   max-width: 1000px;
   margin: 0 auto;
+  padding: 0 10px;
 }
 
-.input-field {
-  width: 100%;
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid rgb(150, 150, 150);
-  border-radius: 3px;
-}
-
-.input-field.filter {
-  width: 300px;
-}
-
-.header-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 20px;
+.filter-wrapper {
+  max-width: 400px;
 }

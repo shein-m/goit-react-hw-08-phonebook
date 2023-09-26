@@ -40,13 +40,12 @@ export const AuthFormIconWrapper = styled.span`
 `;
 
 export const AuthFormInput = styled.input`
-  width: 360px;
+  min-width: 100%;
   height: 40px;
   padding-left: 40px;
 
   border-radius: 4px;
   border: 1px solid rgba(33, 33, 33, 0.2);
-  outline: none;
 
   font-size: 16px;
 
@@ -64,7 +63,7 @@ export const AuthFormInput = styled.input`
 
 export const AuthFormButton = styled.button`
   display: block;
-  width: 360px;
+  width: 100%;
   height: 40px;
   margin-bottom: 20px;
   border: none;

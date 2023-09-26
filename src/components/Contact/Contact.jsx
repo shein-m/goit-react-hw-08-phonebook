@@ -17,9 +17,8 @@ export default function Contact({ name, number, id, handleUpdate }) {
     <>
       <ContactLi>
         <ContactWrapper>
-          <ContactContent>
-            {name}: {number}
-          </ContactContent>
+          <ContactContent>{name}</ContactContent>
+          <ContactContent>{number}</ContactContent>
           <ContactGroupButtons>
             <ContactButton
               type="button"

@@ -2,6 +2,8 @@ import { useState } from 'react';
 import {
   ContactButton,
   ContactDiv,
+  ContactFormWrapper,
+  ContactInput,
   ContactLabel,
   ContactUiForm,
 } from './contactForm.styled';
@@ -54,38 +56,40 @@ export default function ContactForm() {
   };
 
   return (
-    <Section title="Phonebook">
-      <ContactUiForm type="submit" autoComplete="false" onSubmit={handleForm}>
-        <ContactDiv>
+    <Section id="phonebook">
+      <ContactFormWrapper>
+        <h2>Phonebook</h2>
+        <ContactUiForm type="submit" autoComplete="false" onSubmit={handleForm}>
           <ContactLabel htmlFor="name">Name</ContactLabel>
-          <input
-            className="input-field"
-            type="text"
-            name="name"
-            pattern="^[a-zA-Zа-яА-Я]+(([' \-][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-            title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-            required
-            value={name}
-            onChange={handleChange}
-          />
-        </ContactDiv>
+          <ContactDiv>
+            <ContactInput
+              type="text"
+              name="name"
+              pattern="^[a-zA-Zа-яА-Я]+(([' \-][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+              placeholder="Put contact name"
+              title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+              required
+              value={name}
+              onChange={handleChange}
+            />
+          </ContactDiv>
 
-        <ContactDiv>
           <ContactLabel htmlFor="number">Tel</ContactLabel>
-          <input
-            className="input-field"
-            type="tel"
-            name="number"
-            pattern="^[+]?[0-9\\.\\-\\s]{1,15}$"
-            title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-            value={number}
-            onChange={handleChange}
-            required
-          />
-        </ContactDiv>
-
-        <ContactButton type="submit">add contact</ContactButton>
-      </ContactUiForm>
+          <ContactDiv>
+            <ContactInput
+              type="tel"
+              name="number"
+              placeholder="Put contact phone"
+              pattern="^[+]?[0-9\\.\\-\\s]{1,15}$"
+              title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+              value={number}
+              onChange={handleChange}
+              required
+            />
+          </ContactDiv>
+          <ContactButton type="submit">Add contact</ContactButton>
+        </ContactUiForm>
+      </ContactFormWrapper>
     </Section>
   );
 }
